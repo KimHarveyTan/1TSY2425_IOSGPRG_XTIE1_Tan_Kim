@@ -6,6 +6,16 @@ using TMPro;
 
 public class SwipeDetection : MonoBehaviour
 {
+    public enum InputDirection
+    {
+        RIGHT = 0,
+        DOWN = 1,
+        LEFT = 2,
+        UP = 3,
+        TAP = 4,
+        NULL = 5,
+    }
+
     //swipe variables
     private Vector2 _startTouchPosition;
     private Vector2 _currentPosition;
@@ -13,7 +23,8 @@ public class SwipeDetection : MonoBehaviour
     private bool _stopTouch = false;
     public float _swipeRange;
     public float _tapRange;
-    public string _inputString { get; set; }
+
+    public InputDirection _inputDirection;
 
     void Update()
     {
@@ -39,25 +50,25 @@ public class SwipeDetection : MonoBehaviour
                 {
                     _stopTouch = true;
                     Debug.Log("Swiped Left");
-                    _inputString = "Left";
+                    _inputDirection = InputDirection.LEFT;
                 }
                 else if (Distance.x > _swipeRange)
                 {
                     _stopTouch = true;
                     Debug.Log("Swiped Right");
-                    _inputString = "Right";
+                    _inputDirection = InputDirection.RIGHT;
                 }
                 else if (Distance.y < -_swipeRange)
                 {
                     _stopTouch = true;
                     Debug.Log("Swiped Down");
-                    _inputString = "Down";
+                    _inputDirection = InputDirection.DOWN;
                 }
                 else if (Distance.y > _swipeRange)
                 {
                     _stopTouch = true;
                     Debug.Log("Swiped Up");
-                    _inputString = "Up";
+                    _inputDirection = InputDirection.UP;
                 }
             }
         }
@@ -71,7 +82,7 @@ public class SwipeDetection : MonoBehaviour
             if (Mathf.Abs(Distance.x) < _tapRange && Mathf.Abs(Distance.y) < _tapRange)
             {
                 Debug.Log("Tapped");
-                _inputString = "Tap";
+                _inputDirection = InputDirection.TAP;
             }
         }
     }
