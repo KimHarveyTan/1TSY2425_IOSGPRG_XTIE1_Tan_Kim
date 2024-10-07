@@ -67,14 +67,20 @@ public class Player : MonoBehaviour
     {
         if (_swipeDetection._inputDirection == SwipeDetection.InputDirection.TAP) //Dash Tap 
         {
+            GameplayMgr.Instance.addScore(6);
+
             foreach (GameObject enemyObj in SpawnerController.Instance.enemyList)
             {
-                GameplayMgr.Instance.addScore(5);
+                
                 Vector3 enemyPos = enemyObj.transform.position;
-                enemyPos.y -= 1;
+                enemyPos.y -= 2;
                 enemyObj.transform.position = enemyPos;
                 _swipeDetection._inputDirection = SwipeDetection.InputDirection.NULL;
             }
+
+            Vector3 bgPos = GameplayMgr.Instance._background.transform.position;
+            bgPos.y -= 2;
+            GameplayMgr.Instance._background.transform.position = bgPos;
         }
 
         if (curGauge < 100) //Gauge Button
