@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : Singleton<GameManager>
 {
-	[SerializeField] Player _player;
+	public Player _player;
 	[SerializeField] Enemy _enemy;
 
 	public Player Player 
@@ -38,7 +38,7 @@ public class GameManager : Singleton<GameManager>
 	}
 	public void RestartGame()
 	{
-		Player.Reset();
+		_player.Reset();
 		Enemy.Reset();
 		SpawnerController.Instance.Reset();
 		GameplayMgr.Instance.Reset();

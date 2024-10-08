@@ -5,9 +5,10 @@ using UnityEngine;
 
 public enum MenuType
 {
-	MainMenu		= 0,
-	InGameMenu		= 1,
-	GameOverMenu	= 2,
+	MainMenu		 = 0,
+	InGameMenu		 = 1,
+	GameOverMenu	 = 2,
+	PlayerSelectMenu = 3,
 }
 
 

@@ -12,8 +12,8 @@ public class Player : MonoBehaviour
     public bool _isOnDash = false;
     [SerializeField] float curGauge;
     [SerializeField] float maxGauge;
-    [SerializeField] Image GaugeBar;
-    [SerializeField] Button GaugeButton;
+    public Image GaugeBar;
+    public Button GaugeButton;
     [SerializeField] GameObject _enemy;
     public bool _isPlayerNear;
     public float _moveDistance;
@@ -55,12 +55,14 @@ public class Player : MonoBehaviour
     private void Start()
     {
         _swipeDetection = GetComponent<SwipeDetection>();
-        _startPos = this.transform.position;
+        //_startPos = this.transform.position;
+        _startPos = SpawnerController.Instance.GetComponent<SpawnerController>()._playerIngameSP.transform.position;
         //UpdateHealth();
         UpdateHealthUI();
         curGauge = 0;
         UpdateGauge();
         _gaugeButtonShow = false;
+        GaugeButton?.onClick.AddListener(() => Dash());
     }
 
     private void Update()
@@ -71,7 +73,6 @@ public class Player : MonoBehaviour
 
             foreach (GameObject enemyObj in SpawnerController.Instance.enemyList)
             {
-                
                 Vector3 enemyPos = enemyObj.transform.position;
                 enemyPos.y -= 2;
                 enemyObj.transform.position = enemyPos;
@@ -212,10 +213,6 @@ public class Player : MonoBehaviour
         }
     }
 
-
-        
-    
-
     /// FUNCTIONS
     /*
     public void TakeDamage(float damage)
@@ -321,6 +318,7 @@ public class Player : MonoBehaviour
         SpawnerController.Instance.spawnerDelay = 1.3f;
         _enemy.GetComponent<Enemy>()._moveSpeed = 1f;
         _isPlayerNear = false;
+        SpawnerController.Instance.SpawnCharacterIngame();
     }
 
     public void IncreaseEnemyspawnAndSpeed()
@@ -337,8 +335,11 @@ public class Player : MonoBehaviour
     private IEnumerator RemoveEnemyAfterDelay(GameObject enemy, float delay)
     {
         yield return new WaitForSeconds(delay);
-        SpawnerController.Instance.RemoveEnemy(enemy);
-        GameplayMgr.Instance.addScore(20);
+        if (enemy != null)
+        {
+            SpawnerController.Instance.RemoveEnemy(enemy);
+            GameplayMgr.Instance.addScore(20);
+        }
     }
 
     IEnumerator CO_IncreaseEnemyspawnAndSpeed()

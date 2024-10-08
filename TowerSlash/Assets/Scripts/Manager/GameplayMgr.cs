@@ -6,7 +6,7 @@ using TMPro;
 
 public class GameplayMgr : Singleton<GameplayMgr>
 {
-    [SerializeField] GameObject _player;
+    public GameObject _player;
     [SerializeField] int _score;
     [SerializeField] TextMeshProUGUI _scoreDisplay;
 
@@ -16,9 +16,13 @@ public class GameplayMgr : Singleton<GameplayMgr>
 
     void Start()
     {
-        if (!_player.GetComponent<Player>()._isOnDash)
+        if(_player != null)
         {
-            _bgSpeed = 6.6f; //.6f if Time.fixedDeltaTime instead of Time.deltaTime
+            if (!_player.GetComponent<Player>()._isOnDash)
+            {
+                _bgSpeed = 6.6f; //.6f if Time.fixedDeltaTime instead of Time.deltaTime
+            }
+
         }
 
         _score = 0;

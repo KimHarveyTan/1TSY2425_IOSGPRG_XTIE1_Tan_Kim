@@ -25,7 +25,7 @@ public class Enemy : MonoBehaviour
     [SerializeField] EnemyType _enemyType;
     [SerializeField] SpriteRenderer _arrowObj;
     [SerializeField] Sprite[] _arrows;
-    [SerializeField] bool _isPlayerNear = false;
+    public bool _isPlayerNear = false;
     int _randArrowNum;
     public ArrowDirection _arrowDirection;
     public GameObject _player;
@@ -78,7 +78,10 @@ public class Enemy : MonoBehaviour
     {
         transform.Translate(Vector3.down * _moveSpeed * Time.deltaTime /*Time.fixedDeltaTime*/);
 
-        _isPlayerNear = _player.GetComponent<Player>()._isPlayerNear;
+        if (_player != null)
+        {
+            _isPlayerNear = _player.GetComponent<Player>()._isPlayerNear;
+        }     
     }
 
     
@@ -109,9 +112,10 @@ public class Enemy : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.name == "Player")
+        if (collision.gameObject.name.Contains("Player"))
         {
             _arrowObj.GetComponent<Transform>().localScale *= 1.3f;
+
         }
     }
 
