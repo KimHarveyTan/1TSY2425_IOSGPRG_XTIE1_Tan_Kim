@@ -5,19 +5,23 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : Singleton<GameManager>
 {
+	#region VARIABLES
+	#endregion
+
+	#region UNITY MESSAGES
 	public Player _player;
 	[SerializeField] Enemy _enemy;
 
-	public Player Player 
-	{ 
-		get 
-		{ 
-			return _player; 
-		} 
-		set 
-		{ 
-			_player = value; 
-		}  
+	public Player Player
+	{
+		get
+		{
+			return _player;
+		}
+		set
+		{
+			_player = value;
+		}
 	}
 
 	public Enemy Enemy
@@ -31,7 +35,9 @@ public class GameManager : Singleton<GameManager>
 			_enemy = value;
 		}
 	}
+	#endregion
 
+	#region PUBLIC FUNCTIONS
 	public void StartGame()
 	{
 		SpawnerController.Instance.StartGame();
@@ -50,4 +56,11 @@ public class GameManager : Singleton<GameManager>
 		Time.timeScale = 0;
 		MenuMgr.Instance.SwitchMenu((int)MenuType.GameOverMenu);
 	}
+	#endregion
+
+	#region PRIVATE FUNCTIONS
+	#endregion
+
+	#region COROUTINES & HELPER FUNCTIONS
+	#endregion
 }
